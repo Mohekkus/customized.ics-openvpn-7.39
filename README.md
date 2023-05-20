@@ -7,4 +7,4 @@ This is Customized Android Application using Kotlin for work test Interview base
 
 This repository already gets approval from original OpenVpn owner Arne Schwabe without intention of violating any term of OpenVPN GPLv2 Certification and OpenVpn code will remains under their term.
 
-Future information will be included as if seen fit.
+Future information will be included as seen fit.
