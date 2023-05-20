@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <!-- Used to show all apps in the allowed Apps selection,
          this app needs the list the app in the allow/deny apps over the VPN -->
@@ -32,13 +33,21 @@
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:label="@string/app"
+        android:label="@string/app_custom"
         android:supportsRtl="true"
-        android:theme="@style/blinkt"
+        android:theme="@style/Theme.AppCompat.Light"
         tools:ignore="UnusedAttribute">
         <meta-data
             android:name="android.content.APP_RESTRICTIONS"
             android:resource="@xml/app_restrictions" />
+
+        <activity android:name="custom.mohekkus.MyActivity"
+            android:exported="true">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".activities.DisconnectVPN"
@@ -53,7 +62,6 @@
             android:name=".core.OpenVPNService"
             android:exported="true"
             android:permission="android.permission.BIND_VPN_SERVICE"
-            android:foregroundServiceType="specialUse"
             android:process=":openvpn">
             <intent-filter>
                 <action android:name="android.net.VpnService" />

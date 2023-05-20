@@ -1,4 +1,5 @@
 import com.android.build.gradle.api.ApplicationVariant
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 /*
  * Copyright (c) 2012-2016 Arne Schwabe
@@ -9,6 +10,8 @@ plugins {
     id("com.android.application")
     id("checkstyle")
 
+    id("org.jetbrains.kotlin.android")
+
     id("kotlin-android")
 }
 
@@ -17,16 +20,16 @@ android {
         aidl = true
     }
     namespace = "de.blinkt.openvpn"
-    //compileSdk = 33
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk = 33
+//    compileSdkPreview = "UpsideDownCake"
 
     // Also update runcoverity.sh
     ndkVersion = "25.1.8937393"
 
     defaultConfig {
-        minSdk = 21
-        //targetSdk = 33
-        targetSdkPreview = "UpsideDownCake"
+        minSdk = 16
+        targetSdk = 33
+//        targetSdkPreview = "UpsideDownCake"
         versionCode = 198
         versionName = "0.7.43"
         versionCode = 199
@@ -133,8 +136,8 @@ var swigcmd = "swig"
 // I cannot get the Exec task to respect the PATH environment :(
 if (file("/opt/homebrew/bin/swig").exists())
     swigcmd = "/opt/homebrew/bin/swig"
-else if (file("/usr/local/bin/swig").exists())
-    swigcmd = "/usr/local/bin/swig"
+else if (file("C:/usr/swig").exists())
+    swigcmd = "C:/usr/swig"
 
 
 fun registerGenTask(variantName: String, variantDirName: String): File {
@@ -170,6 +173,9 @@ android.applicationVariants.all(object : Action<ApplicationVariant> {
 
 
 dependencies {
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     // https://maven.google.com/web/index.html
     // https://developer.android.com/jetpack/androidx/releases/core
     val preferenceVersion = "1.2.0"
@@ -184,10 +190,9 @@ dependencies {
 
     // Is there a nicer way to do this?
     dependencies.add("uiImplementation", "androidx.constraintlayout:constraintlayout:2.1.4")
-    dependencies.add("uiImplementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.22")
+    dependencies.add("uiImplementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10")
     dependencies.add("uiImplementation", "androidx.cardview:cardview:1.0.0")
     dependencies.add("uiImplementation", "androidx.recyclerview:recyclerview:1.2.1")
-    dependencies.add("uiImplementation", "androidx.appcompat:appcompat:1.5.1")
     dependencies.add("uiImplementation", "com.github.PhilJay:MPAndroidChart:v3.1.0")
     dependencies.add("uiImplementation", "com.squareup.okhttp3:okhttp:4.9.3")
     dependencies.add("uiImplementation", "androidx.core:core:$coreVersion")
@@ -197,10 +202,7 @@ dependencies {
     dependencies.add("uiImplementation", "androidx.preference:preference-ktx:$preferenceVersion")
     dependencies.add("uiImplementation", "com.google.android.material:material:$materialVersion")
     dependencies.add("uiImplementation", "androidx.webkit:webkit:1.4.0")
-    dependencies.add("uiImplementation", "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    dependencies.add("uiImplementation", "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     dependencies.add("uiImplementation","androidx.security:security-crypto:1.1.0-alpha06")
-
 
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21")
     testImplementation("junit:junit:4.13.2")

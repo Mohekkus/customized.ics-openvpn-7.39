@@ -30,3 +30,5 @@ polaris.yml
 idir
 
 test.local.conf
+/tlsexternalcertprovider/
+/remoteExample/
